@@ -4,10 +4,208 @@ import random
 size = 4
 
 def myTicTacToe(grille, monSymbole):
-    x=-1#à definir
-    y=-1#à definir
+   # on va gagner en un seul coup
 
-    return (x, y)
+   global j, i
+   for i in range(0, 4):  # lines
+       sum = 0
+       for j in range(0, 4):
+           sum = sum + grille[i][j]
+           if sum == 3 * monSymbole:
+               for j in range(0,4):
+                   if grille[i][j] == 0:
+                       return (i, j)
+
+   for j in range(0, 4):  # columns
+       sum = 0
+       for i in range(0, 4):
+           sum = sum + grille[i][j]
+           if sum == 3 * monSymbole:
+               for i in range(0, 4):
+                   if grille[i][j] == 0:
+                       return i, j
+
+   sum = 0  # diagonales
+   for i in range(0, 4):
+       sum = sum + grille[j][j]
+       if sum == 3 * monSymbole:
+           for i in range(0, 4):
+               if grille[i][i] == 0:
+                   return i, i
+
+   sum = 0
+   for i in range(0, 4):
+       sum = sum + grille[i][3 - i]
+       if sum == 3 * monSymbole:
+           for i in range(0, 4):
+               if grille[i][3 - i] == 0:
+                   return i, 3 - i
+
+   for i in range(0, 3):  # squares
+       for j in range(0, 3):
+           sum = grille[i][j] + grille[i + 1][j] + grille[i][j + 1] + grille[i + 1][j + 1]
+           if sum == 3 * monSymbole:
+               if grille[i][j] == 0:
+                   return i, j
+
+               elif grille[i + 1][j] == 0:
+                   return i + 1, j
+
+               elif grille[i][j + 1] == 0:
+                   return i, j + 1
+
+               elif grille[i + 1][j + 1] == 0:
+                   return i + 1, j + 1
+   # l'ordi va gagner en un seul coup
+   for i in range(0, 4):  # lines
+       sum = 0
+       for j in range(0, 4):
+           sum = sum + grille[i][j]
+           if sum == -3 * monSymbole:
+               for j in range(0, 4):
+                   if grille[i][j] == 0:
+                       return (i, j)
+
+   for j in range(0, 4):  # columns
+       sum = 0
+       for i in range(0, 4):
+           sum = sum + grille[i][j]
+           if sum == -3 * monSymbole:
+               for i in range(0, 4):
+                   if grille[i][j] == 0:
+                       return (i, j)
+
+   sum = 0  # diagonales
+   for j in range(0, 4):
+       sum = sum + grille[j][j]
+       if sum == -3 * monSymbole:
+           for j in range(0, 4):
+               if grille[j][j] == 0:
+                   return j, j
+
+   sum = 0
+   for j in range(0, 4):
+       sum = sum + grille[j][3 - j]
+       if sum == -3 * monSymbole:
+           for j in range(0, 4):
+               if grille[j][3 - j] == 0:
+                   return j, 3 - j
+
+   for i in range(0, 3):  # squares
+       for j in range(0, 3):
+           sum = grille[i][j] + grille[i + 1][j] + grille[i][j + 1] + grille[i + 1][j + 1]
+           if sum == -3 * monSymbole:
+               if grille[i][j] == 0:
+                   return (i), (j)
+
+               elif grille[i + 1][j] == 0:
+                   return (i + 1), (j)
+
+               elif grille[i][j + 1] == 0:
+                   return (i), (j + 1)
+
+               elif grille[i + 1][j + 1] == 0:
+                   return (i + 1), (j + 1)
+
+   # pour avoir 2 sum==3*monSymbole a la fois
+   global sum_line, sum_column, sum_diagonal, sum_diagonal2, sum_square
+   for i in range(0, 4):
+       sum_line = 0
+       for j in range(0, 4):
+           sum_line = sum_line + grille[i][j]
+
+   for j in range(0, 4):
+       sum_column = 0
+       for i in range(0, 4):
+           sum_column = sum_column + grille[i][j]
+
+   sum_diagonal = 0
+   for j in range(0, 4):
+       sum_diagonal = sum_diagonal + grille[j][j]
+
+   sum_diagonal2 = 0
+   for j in range(0, 4):
+       sum_diagonal2 = sum_diagonal2 + grille[j][3 - j]
+
+   for i in range(0, 3):
+       for j in range(0, 3):
+           sum_square = grille[i][j] + grille[i + 1][j] + grille[i][j + 1] + grille[i + 1][j + 1]
+
+   list_sum = []
+   for i in range(0, 4):
+       for j in range(0, 4):
+           if sum_line == 2 * monSymbole:
+               list_sum.append("sum_line")
+           elif sum_column == 2 * monSymbole:
+               list_sum.append("sum_column")
+           elif sum_diagonal == 2 * monSymbole:
+               list_sum.append("sum_diagonal")
+           elif sum_diagonal2 == 2 * monSymbole:
+               list_sum.append("sum_diagonal2")
+           elif sum_square == 2 * monSymbole:
+               list_sum.append("sum_square")
+   while len(list_sum) == 2:
+       return i, j
+
+   # on gagne presque(a sum==3*monSymbole)
+   for i in range(0, 4):  # lines
+       sum = 0
+       for j in range(0, 4):
+           sum = sum + grille[i][j]
+           if sum == 2 * monSymbole:
+               if grille[i][j] == 0:
+                   return i, j
+
+   for j in range(0, 4):  # columns
+       sum = 0
+       for i in range(0, 4):
+           sum = sum + grille[i][j]
+           if sum == 2 * monSymbole:
+               if grille[i][j] == 0:
+                   return i, j
+
+   sum = 0  # diagonales
+   for j in range(0, 4):
+       sum = sum + grille[j][j]
+       if sum == 2 * monSymbole:
+           for j in range(0, 4):
+               if grille[j][j] == 0:
+                   return j, j
+
+   sum = 0
+   for j in range(0, 4):
+       sum = sum + grille[j][3 - j]
+       if sum == 2 * monSymbole:
+           for j in range(0, 4):
+               if grille[j][3 - j] == 0:
+                   return j, 3 - j
+
+   for i in range(0, 3):  # squares
+       for j in range(0, 3):
+           sum = grille[i][j] + grille[i + 1][j] + grille[i][j + 1] + grille[i + 1][j + 1]
+           if sum == 2 * monSymbole:
+               if grille[i][j] == 0:
+                   return (i), (j)
+
+               elif grille[i + 1][j] == 0:
+                   return (i + 1), (j)
+
+               elif grille[i][j + 1] == 0:
+                   return (i), (j + 1)
+
+               elif grille[i + 1][j + 1] == 0:
+                   return (i + 1), (j + 1)
+
+   # pour le debut du jeu,et avec ces coups, on peut toujours avoir une sum >=2
+   if grille[1][1] == 0:
+       return 1, 1
+   elif grille[1][2] == 0:
+       return 1, 2
+   elif grille[2][2] == 0:
+       return 2, 2
+   elif grille[2][1] == 0:
+       return 2, 1
+
 
 def check(tab):
     global sum
@@ -128,8 +326,8 @@ while (winner == 0 and finished == False):
 
     if (winner == 0 and finished == False):
         monSymbole = 1
-        #(x,y) = myTicTacToe(grille, monSymbole)
-        (x, y) = tictactoeRandom(grille, monSymbole)
+        (x,y) = myTicTacToe(grille, monSymbole)
+        # (x, y) = tictactoeRandom(grille, monSymbole)
         affecterSymbole(grille, monSymbole, x, y)
         (winner, finished) = check(grille)
 
